@@ -12,7 +12,7 @@
     word_converted:	.space 		151
 
     # define text variables
-    prompt1:        .asciiz  	"Enter input: "
+    prompt1:        .asciiz  	"input: "
     endprompt:      .asciiz  	"output: "
     newline:        .asciiz  	"\n"
 
@@ -35,7 +35,6 @@ main:
     
     # process input:
     j process_input
-    
 
 
     print_output:
@@ -49,10 +48,7 @@ main:
         la   $a0, output
         syscall
 
-
-    
     j end
-
 
 convert_word:
     # Converts the word in word_found and stores it in word_converted

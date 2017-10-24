@@ -9,6 +9,7 @@
     # define text variables
     prompt1:        .asciiz  	"Enter input: "
     newline:        .asciiz  	"\n"
+    endprompt:      .asciiz  	"\noutput: \n"
 
     hyphen:		    .asciiz		"-"
 
@@ -33,6 +34,11 @@ main:
        
     # s0 will hold pointer to last processed character
     la $s0, input
+
+    # output:
+    li   $v0, 4
+    la   $a0, endprompt
+    syscall
 
     main_loop:
         move $a0, $s0
