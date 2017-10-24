@@ -1,0 +1,10 @@
+.idea/
+a.out
+cmake-build-debug/
+cw1.tar.gz
+find_word
+hex.s.hexer
+main.c
+original convert_pig_latin.c
+pig
+
