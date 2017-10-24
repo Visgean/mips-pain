@@ -8,4 +8,4 @@ files:
 - pig_latin.c  - pig latin in c
 - pig_latin.s  - pig latin in mips
 
-Have a look at MARS IDE. 
+Have a look at MARS IDE.
