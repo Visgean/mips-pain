@@ -7,12 +7,12 @@
     output:         .space      3001
 
     # buffer for a single world
-    word_found:	    .space 		51
+    word_found:	    .space 		55
     # buffer for a converted world
-    word_converted:	.space 		151
+    word_converted:	.space 		301
 
     # define text variables
-    prompt1:        .asciiz  	"input: "
+    prompt1:        .asciiz  	"Enter input: "
     endprompt:      .asciiz  	"output: "
     newline:        .asciiz  	"\n"
 
@@ -107,6 +107,8 @@ convert_word:
         # increase char position and vowel index
         addi $s5, $s5, 1
         addi $s1, $s1, 1
+
+	j while_not_vowel
 
     vowel_or_exit:  # we either find vowel or end of the word
 
