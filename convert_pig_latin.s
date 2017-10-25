@@ -3,34 +3,34 @@
 .data
 
     # allocate 1000 bytes for the input
-    input: 	        .space 		1001
+    input:          .space      1001
     output:         .space      3001
 
     # buffer for a single world
-    word_found:	    .space 		55
+    word_found:     .space      55
     # buffer for a converted world
-    word_converted:	.space 		301
+    word_converted: .space      301
 
     # define text variables
-    prompt1:        .asciiz  	"Enter input: "
-    endprompt:      .asciiz  	"output: "
-    newline:        .asciiz  	"\n"
+    prompt1:        .asciiz     "Enter input: "
+    endprompt:      .asciiz     "output: "
+    newline:        .asciiz     "\n"
 
-    hyphen:	    	.asciiz		"-"
-    max_size:	    .word		1000
+    hyphen:         .asciiz     "-"
+    max_size:       .word       1000
 
 .text
 
 main:
     # Prompt:
-    li   $v0, 4           	# print_string("Enter input: ");
+    li   $v0, 4             # print_string("Enter input: ");
     la   $a0, prompt1
     syscall
         
     # get_input()
-    li $v0, 8 		    # syscall #8 means reading string
-    la $a0, input 		# 1st arg is buffer
-    la $a1, max_size 	# 2nd arg is max lenght
+    li $v0, 8           # syscall #8 means reading string
+    la $a0, input       # 1st arg is buffer
+    la $a1, max_size    # 2nd arg is max lenght
     syscall
     
     # process input:
@@ -108,7 +108,7 @@ convert_word:
         addi $s5, $s5, 1
         addi $s1, $s1, 1
 
-	j while_not_vowel
+    j while_not_vowel
 
     vowel_or_exit:  # we either find vowel or end of the word
 
@@ -187,7 +187,7 @@ convert_word:
     lw   $s4, 16($sp)
     lw   $s5, 20($sp)
     addi $sp, $sp, 24
-    jr   $t0  	   # return
+    jr   $t0       # return
 
 
 find_word:
@@ -280,11 +280,11 @@ find_word:
         lw   $s3, 12($sp)
         lw   $s4, 16($sp)
         addi $sp, $sp, 20
-        jr   $t0  	   # return
+        jr   $t0       # return
 
 
 
-process_input: 	
+process_input:  
     # this is a procedure rather then function that handles all of the input
     # processing.
 
@@ -405,15 +405,15 @@ is_uppercase: # returns true if its uppercase or hyphen
     li $t0, 45                   # hyphen
     beq $a0, $t0, return_true
 
-    slti $t0, $a0, 65  			    # if a0 > A
-    beq  $t0, $0,  over65_single  	# goto over65
+    slti $t0, $a0, 65               # if a0 > A
+    beq  $t0, $0,  over65_single    # goto over65
 
-    j return_false				# else return false
+    j return_false              # else return false
 
     over65_single:
-        slti $t0, $a0, 90  		        # if a0 > Z
-        beq  $t0, $0,  return_false  	# return false
-        j return_true			        # else return true
+        slti $t0, $a0, 90               # if a0 > Z
+        beq  $t0, $0,  return_false     # return false
+        j return_true                   # else return true
 
 
 
@@ -457,25 +457,25 @@ is_capital_only: # a0: address of the string -> v0 true/false
 
 
 is_word_character: # is_word_character(char a0) -> 0/1 bool set to v0 if this is character
-    slti $t0, $a0, 65  			# if a0 > A
-    beq  $t0, $0,  over65  			# goto over65
+    slti $t0, $a0, 65           # if a0 > A
+    beq  $t0, $0,  over65           # goto over65
 
-    j return_false				# else return false
+    j return_false              # else return false
 
     over65:
-        slti $t0, $a0, 91  		# if a0 > Z
-        beq  $t0, $0,  over90  		# goto over65
-        j return_true			# else return true
+        slti $t0, $a0, 91       # if a0 > Z
+        beq  $t0, $0,  over90       # goto over65
+        j return_true           # else return true
 
     over90:
-        slti $t0, $a0, 97  		# if a0 > a
-        beq  $t0, $0,  over97  		# jump to over97
-        j return_false			# else return false
+        slti $t0, $a0, 97       # if a0 > a
+        beq  $t0, $0,  over97       # jump to over97
+        j return_false          # else return false
 
     over97:
-        slti $t0, $a0, 123  		# if a0 > a
-        beq  $t0, $0,  return_false 	# jump to over97
-        j return_true			# else return false
+        slti $t0, $a0, 123          # if a0 > a
+        beq  $t0, $0,  return_false     # jump to over97
+        j return_true           # else return false
 
 is_hyphen: # return a0 == '-' 
     la $t0, hyphen
@@ -488,7 +488,7 @@ return_false:
     li $v0, 0
     jr $ra
 
-return_true:	
+return_true:    
     li $v0, 1
     jr $ra
 
